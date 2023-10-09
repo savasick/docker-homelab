@@ -1,0 +1,112 @@
+# docker-homelab
+version: '3'
+
+networks:
+  net:
+    external: false
+
+# ------------- traefik -------------
+services:
+  reverse-proxy:
+    image: traefik:v2.5
+    container_name: traefik-${NAME}
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/static.yml:/etc/traefik/traefik.yml:ro
+      - ./config/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./certs:/etc/certs:ro
+    networks:
+      - net
+
+# ------------- postgres -------------
+  db-postgres:
+    image: postgres:12.2
+    container_name: postgres-${NAME}
+    restart: always
+    environment:
+      POSTGRES_DB: gitea
+      POSTGRES_USER: gitea
+      POSTGRES_PASSWORD: gitea
+      PGDATA: /var/lib/postgresql/data
+#    ports:
+#      - 127.0.0.1:5432:5432
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.docker.network=net"
+#      - "traefik.http.routers.db-postgres.tls=true"
+#      - "traefik.http.routers.db-postgres.rule=Host(`db-postgres.localhost`)"
+#      - "traefik.http.routers.db-postgres.rule=Host(`db-postgres`)"
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    networks:
+      - net
+
+# ------------- adminer -------------
+  adminer:
+    image: adminer:latest
+    container_name: adminer-${NAME}
+    restart: always
+    depends_on:
+      - db-postgres
+#    environment: 
+#        ADMINER_DEFAULT_SERVER: db-postgres
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=net"
+      - "traefik.http.routers.adminer.rule=Host(`adminer.localhost`)"
+      - "traefik.http.routers.adminer.tls=true"
+    networks:
+      - net
+
+# ------------- jenkins -------------
+  jenkins:
+    image: jenkins/jenkins:latest
+    container_name: jenkins-${NAME}
+    restart: always
+#    environment:
+#      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+#      JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
+    networks:
+      - net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=net"
+      - "traefik.http.routers.jenkins.rule=Host(`jenkins.localhost`)"
+      - "traefik.http.routers.jenkins.tls=true"
+      - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+# ------------- gitea -------------
+  gitea:
+    image: gitea/gitea:1.17.4
+    container_name: gitea-${NAME}
+    restart: always
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=postgres
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=gitea
+      - GITEA__database__PASSWD=gitea
+#      - ROOT_URL=https://gitea.localhost
+#      - DOMAIN=https://gitea.localhost
+#      - SECRET_KEY=${SECRET_KEY}
+    networks:
+      - net
+    labels:
+      - "traefik.http.services.gitea.loadbalancer.server.port=3000"
+      - "traefik.enable=true"
+      - "traefik.docker.network=net"
+      - "traefik.http.routers.gitea.rule=Host(`gitea.localhost`)"
+      - "traefik.http.routers.gitea.tls=true"
+    volumes:
+      - ./gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - db-postgres

@@ -1,0 +1,10 @@
+/tmp
+/homelab
+/postgres
+/gitea
+bad.yml
+/certs/certificate.pem
+/certs/privatekey.pem
+/bad
+todo
+mkcert-amd64.exe
