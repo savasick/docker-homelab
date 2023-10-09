@@ -64,8 +64,8 @@ choco install mkcert
 
 #
 
-<h3>At <strong>first!</strong></h3>
-<strong>add TLS</strong> certificates by <strong>mkcert</strong>
+<h3>
+<strong>add TLS</strong> certificates by <strong>mkcert</strong></h3>
 
 </br>
 
@@ -81,7 +81,7 @@ mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.
 
 #
 
-<h3> start</h3>
+<h3><strong>start</strong></h3>
 
 ```bash
 docker-compose up -d
