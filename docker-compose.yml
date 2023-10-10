@@ -54,7 +54,7 @@ services:
       - db-postgres
     environment: 
       - ADMINER_DEFAULT_SERVER=db-postgres
-      - ADMINER_DESIGN=dracula
+      - ADMINER_DESIGN=nette
 #      - ADMINER_DRIVER=pgsql
 #      - DEFAULT_DRIVER=postgresql
 #      - ADMINER_DEFAULT_PASSWORD==gitea
@@ -73,9 +73,9 @@ services:
     image: jenkins/jenkins:latest
     container_name: jenkins-${NAME}
     restart: always
-#    environment:
-#      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
-#      JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
+    environment:
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+      JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
     networks:
       - net
     labels:
@@ -102,6 +102,7 @@ services:
       - GITEA__database__USER=gitea
       - GITEA__database__PASSWD=gitea
       - GITEA__database__HOST=db-postgres:5432
+      - GITEA__ui__DEFAULT_THEME=gitea
     networks:
       - net
     labels:

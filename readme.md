@@ -21,22 +21,7 @@ All in one compose.file
 <li>mkcert</li>
 </ul>
 
-<details>
-<summary> How to install <strong>docker / docker-compose</strong> at linux / macos / windows</summary>
-
-<strong>linux</strong> by apt
-
-```bash
-sudo apt install docker.io docker-compose -y
-```
-
-<strong>macos / windows</strong>
-
-install <strong>docker desktop</strong> from <a href="https://www.docker.com/products/docker-desktop/">official site</a>
-#
-</details>
-
-
+<small>
 
 <details>
 <summary> How to install <strong>mkcert</strong> at linux / macos / windows</summary>
@@ -61,6 +46,7 @@ choco install mkcert
 ```
 
 </details>
+</small>
 
 #
 
@@ -75,12 +61,9 @@ mkcert -install
 mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "jenkins.localhost"
 ```
 
-
-
-
-
 #
 
+<big>
 <h3><strong>start</strong></h3>
 
 ```bash
@@ -97,3 +80,4 @@ https://
 
 </details>
 
+</big>
