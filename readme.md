@@ -97,8 +97,3 @@ https://
 
 </details>
 
-
-
-#
-
-If u find this helpful, pls <strong>star</strong> / fork / watch this repo, ty :3

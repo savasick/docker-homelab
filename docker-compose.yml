@@ -52,8 +52,14 @@ services:
     restart: always
     depends_on:
       - db-postgres
-#    environment: 
-#        ADMINER_DEFAULT_SERVER: db-postgres
+    environment: 
+      - ADMINER_DEFAULT_SERVER=db-postgres
+      - ADMINER_DESIGN=dracula
+#      - ADMINER_DRIVER=pgsql
+#      - DEFAULT_DRIVER=postgresql
+#      - ADMINER_DEFAULT_PASSWORD==gitea
+#      - ADMINER_DEFAULT_USER==gitea
+#      - ADMINER_DB=gitea
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=net"

@@ -1,12 +1,4 @@
-/tmp
-/homelab
 /postgres
-bad.yml
 /certs/certificate.pem
 /certs/privatekey.pem
-gitea/gitea/*
-gitea/git/
-gitea/ssh/
-/bad
-todo
-mkcert-amd64.exe
+gitea/
