@@ -2,3 +2,4 @@
 /certs/certificate.pem
 /certs/privatekey.pem
 gitea/
+/tmp
