@@ -15,6 +15,8 @@ All in one compose.file
 
 </details>
 
+#
+
 <h3>Requirements:</h3>
 <ul>
 <li>docker / docker-compose</li>
@@ -58,7 +60,7 @@ choco install mkcert
 ```bash
 mkcert -install
 
-mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "jenkins.localhost"
+mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "jenkins.localhost" "postgres"
 ```
 
 #
