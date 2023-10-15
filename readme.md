@@ -1,6 +1,6 @@
 # <strong> Docker - Homelab </strong>
 
-Collection of the applications used in homelabs. With local certificates.\
+Collection of the applications used in homelabs\
 All in one compose.file
 
 
@@ -9,7 +9,7 @@ All in one compose.file
 <summary><strong>Apps</strong></summary>
 
 [traefik](https://traefik.io) as reverse proxy\
-[adminer](https://www.adminer.org) as web gui database management\
+[adminer](https://www.adminer.org) as web ui database management\
 [gitea](https://about.gitea.com) as git server\
 [jenkins](https://www.jenkins.io) as automation server 
 
@@ -73,7 +73,6 @@ docker-compose up -d
 ```
 <details>
 <summary><strong>Links</strong></summary>
-https://
 
 [traefik.localhost](https://traefik.localhost)\
 [adminer.localhost](https://adminer.localhost)\
