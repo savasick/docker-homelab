@@ -1,6 +1,6 @@
 # <strong> Docker - Homelab </strong>
 
-Collection of the applications used in homelabs.\
+Collection of the applications used in homelabs. With local certificates.\
 All in one compose.file
 
 
