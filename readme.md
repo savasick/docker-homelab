@@ -4,7 +4,6 @@ Collection of the applications used in homelabs\
 All in one compose.file
 
 
-
 <details>
 <summary><strong>Apps</strong></summary>
 
@@ -15,7 +14,9 @@ All in one compose.file
 
 </details>
 
+
 #
+
 
 <h3>Requirements:</h3>
 <ul>
@@ -23,6 +24,20 @@ All in one compose.file
 <li>mkcert</li>
 </ul>
 
+
+#
+
+
+<h3>
+self-signed certificates
+</h3>
+
+
+```bash
+mkcert -install
+
+mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "jenkins.localhost" "postgres"
+```
 <small>
 
 <details>
@@ -50,29 +65,17 @@ choco install mkcert
 </details>
 </small>
 
-#
-
-<h3>
-<strong>add TLS</strong> certificates by <strong>mkcert</strong></h3>
-
-</br>
-
-```bash
-mkcert -install
-
-mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "jenkins.localhost" "postgres"
-```
 
 #
 
-<big>
+
 <h3><strong>start</strong></h3>
 
 ```bash
 docker-compose up -d
 ```
 <details>
-<summary><strong>Links</strong></summary>
+<summary>Links</summary>
 
 [traefik.localhost](https://traefik.localhost)\
 [adminer.localhost](https://adminer.localhost)\
@@ -81,4 +84,4 @@ docker-compose up -d
 
 </details>
 
-</big>
+
