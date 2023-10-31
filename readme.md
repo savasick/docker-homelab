@@ -72,7 +72,7 @@ choco install mkcert
 <h3><strong>start</strong></h3>
 
 ```bash
-docker-compose up -d
+docker-compose up -d --build
 ```
 <details>
 <summary>Links</summary>

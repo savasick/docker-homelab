@@ -58,25 +58,6 @@ services:
     networks:
       - net
 
-# ------------- jenkins -------------
-  jenkins:
-    image: jenkins/jenkins:latest
-    container_name: jenkins-${NAME}
-    restart: always
-#    environment:
-#      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
-#      JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
-    networks:
-      - net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=net"
-      - "traefik.http.routers.jenkins.rule=Host(`jenkins.localhost`)"
-      - "traefik.http.routers.jenkins.tls=true"
-      - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
 # ------------- gitea -------------
   gitea:
     image: gitea/gitea:latest
