@@ -36,7 +36,7 @@ self-signed certificates
 ```bash
 mkcert -install
 
-mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "jenkins.localhost" "postgres"
+mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "postgres"
 ```
 <small>
 
@@ -80,7 +80,7 @@ docker-compose up -d --build
 [traefik.localhost](https://traefik.localhost)\
 [adminer.localhost](https://adminer.localhost)\
 [gitea.localhost](https://gitea.localhost)\
-[jenkins.localhost](https://jenkins.localhost)
+[portainer.localhost](https://portainer.localhost)
 
 </details>
 

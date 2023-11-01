@@ -89,3 +89,24 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - postgres
+
+# ------------- portainer -------------
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer-${NAME}
+    restart: always
+    networks:
+      - net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=net"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.localhost`)"
+      - "traefik.http.routers.portainer.tls=true"
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  data:
