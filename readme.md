@@ -10,7 +10,6 @@ All in one compose.file
 [traefik](https://traefik.io) as reverse proxy\
 [adminer](https://www.adminer.org) as web ui database management\
 [gitea](https://about.gitea.com) as git server\
-[jenkins](https://www.jenkins.io) as automation server 
 
 </details>
 
