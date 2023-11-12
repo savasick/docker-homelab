@@ -3,3 +3,4 @@
 /certs/privatekey.pem
 gitea/
 /tmp
+/test

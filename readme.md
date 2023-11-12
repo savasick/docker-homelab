@@ -10,6 +10,7 @@ All in one compose.file
 [traefik](https://traefik.io) as reverse proxy\
 [adminer](https://www.adminer.org) as web ui database management\
 [gitea](https://about.gitea.com) as git server\
+[portainer](https://www.portainer.io) as container orchestration
 
 </details>
 
@@ -71,7 +72,7 @@ choco install mkcert
 <h3><strong>start</strong></h3>
 
 ```bash
-docker-compose up -d --build
+docker-compose up -d
 ```
 <details>
 <summary>Links</summary>
