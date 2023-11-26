@@ -24,15 +24,15 @@ services:
 
 # ------------- postgres -------------
   postgres:
-    image: postgres:latest
+    image: postgres:14
     container_name: postgres-${NAME}
     restart: always
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWD}
-      PGDATA: /var/lib/postgresql/data
-    command: postgres -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGDATA=/var/lib/postgresql/data
+#    command: postgres -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
     volumes:
       - ./postgres:/var/lib/postgresql/data
       - ./certs/certificate.pem:/var/lib/postgresql/server.crt:ro
@@ -72,11 +72,13 @@ services:
       - GITEA__database__NAME=${DB_NAME}
       - GITEA__database__USER=${DB_USER}
       - GITEA__database__PASSWD=${DB_PASSWD}
-      - GITEA__database__HOST=${DB_TYPE}:5432
+      - GITEA__database__HOST=${DB_TYPE}
       - GITEA__ui__DEFAULT_THEME=gitea
-      - GITEA__database__SSL_MODE=require
+      - GITEA__database__SSL_MODE=disable #require
     networks:
       - net
+    ports:
+      - "3000:3000"
     labels:
       - "traefik.http.services.gitea.loadbalancer.server.port=3000"
       - "traefik.enable=true"
