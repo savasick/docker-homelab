@@ -24,27 +24,8 @@ All in one compose.file
 <li>mkcert</li>
 </ul>
 
-
-#
-
-
-<h3>
-self-signed certificates
-</h3>
-
-
-```bash
-mkcert -install
-
-mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "postgres"
-
-mkcert -cert-file dockerfiles/postgres/server.crt -key-file dockerfiles/postgres/server.key "postgres"
-```
-<small>
-
 <details>
 <summary> How to install <strong>mkcert</strong> at linux / macos / windows</summary>
-
 
 <strong>linux</strong> by apt
 
@@ -65,7 +46,24 @@ choco install mkcert
 ```
 
 </details>
-</small>
+
+#
+
+
+<h3>
+self-signed certificates
+</h3>
+
+
+```bash
+mkcert -install
+
+# for traefik
+mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "postgres"
+
+# for postgres
+mkcert -cert-file dockerfiles/postgres/server.crt -key-file dockerfiles/postgres/server.key "postgres"
+```
 
 
 #
@@ -76,14 +74,25 @@ choco install mkcert
 ```bash
 docker-compose up -d
 ```
-<details>
-<summary>Links</summary>
+
+#
+
+endpoints:
 
 [traefik.localhost](https://traefik.localhost)\
 [adminer.localhost](https://adminer.localhost)\
 [gitea.localhost](https://gitea.localhost)\
 [portainer.localhost](https://portainer.localhost)
 
+
+#
+
+<details>
+<summary><strong>some commands</strong></summary>
+
+delete certificates
+```
+rm -rf certs/certificate.pem certs/privatekey.pem dockerfiles/postgres/server.crt dockerfiles/postgres/server.key
+```
+
 </details>
-
-
