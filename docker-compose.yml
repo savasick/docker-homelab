@@ -24,21 +24,23 @@ services:
 
 # ------------- postgres -------------
   postgres:
-    image: postgres:14
+    #image: postgres:14
     container_name: postgres-${MAIN_NAME}
+    build: dockerfiles/postgres/
     restart: always
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWD}
       - POSTGRES_DB=${DB_NAME}
       - PGDATA=/var/lib/postgresql/data
-#    command: postgres -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
-      - ./certs/certificate.pem:/var/lib/postgresql/server.crt:ro
-      - ./certs/privatekey.pem:/var/lib/postgresql/server.key:ro
+#      - ./certs/certificate.pem:/var/lib/postgresql/server.crt:ro
+#      - ./certs/privatekey.pem:/var/lib/postgresql/server.key:ro
     networks:
       - net
+    command: postgres -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
+
 
 # ------------- adminer -------------
   adminer:

@@ -37,6 +37,8 @@ self-signed certificates
 mkcert -install
 
 mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "postgres"
+
+mkcert -cert-file dockerfiles/postgres/server.crt -key-file dockerfiles/postgres/server.key "postgres"
 ```
 <small>
 
