@@ -8,7 +8,7 @@ networks:
 services:
 # ------------- traefik -------------
   traefik:
-    image: traefik:latest
+    image: traefik:${TRAEFIK_VERSION}
     container_name: traefik-${MAIN_NAME}
     restart: always
     ports:
@@ -41,7 +41,7 @@ services:
 
 # ------------- adminer -------------
   adminer:
-    image: adminer:latest
+    image: adminer:${ADMINER_VERSION}
     container_name: adminer-${MAIN_NAME}
     restart: always
     depends_on:
@@ -59,7 +59,7 @@ services:
 
 # ------------- gitea -------------
   gitea:
-    image: gitea/gitea:latest
+    image: gitea/gitea:${GITEA_VERSION}
     container_name: gitea-${MAIN_NAME}
     restart: always
     environment:
@@ -94,7 +94,7 @@ services:
 # ------------- portainer -------------
 
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ce:${PORTAINER_VERSION}
     container_name: portainer-${MAIN_NAME}
     restart: always
     networks:

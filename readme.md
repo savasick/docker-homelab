@@ -59,7 +59,7 @@ self-signed certificates
 mkcert -install
 
 # for traefik
-mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "postgres"
+mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost"
 
 # for postgres
 mkcert -cert-file dockerfiles/postgres/server.crt -key-file dockerfiles/postgres/server.key "postgres"
@@ -90,9 +90,16 @@ endpoints:
 <details>
 <summary><strong>some commands</strong></summary>
 
-delete certificates
-```
+
+```bash
+# delete certificates
 rm -rf certs/certificate.pem certs/privatekey.pem dockerfiles/postgres/server.crt dockerfiles/postgres/server.key
+```
+
+
+```bash
+# delete data
+rm -rf data || sudo rm -rf data
 ```
 
 </details>
