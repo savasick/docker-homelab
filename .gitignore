@@ -5,5 +5,5 @@ gitea/
 /tmp
 /test
 /data
-/dockerfiles/postgres/server.crt
-/dockerfiles/postgres/server.key
+/apps-files/postgres/server.crt
+/apps-files/postgres/server.key
