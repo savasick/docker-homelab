@@ -62,7 +62,7 @@ mkcert -install
 mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost"
 
 # for postgres
-mkcert -cert-file dockerfiles/postgres/server.crt -key-file dockerfiles/postgres/server.key "postgres"
+mkcert -cert-file apps-files/postgres/server.crt -key-file apps-files/postgres/server.key "postgres"
 ```
 
 
@@ -77,7 +77,7 @@ docker-compose up -d
 
 #
 
-endpoints:
+<h3>endpoints:</h3>
 
 [traefik.localhost](https://traefik.localhost)\
 [adminer.localhost](https://adminer.localhost)\
@@ -93,7 +93,7 @@ endpoints:
 
 ```bash
 # delete certificates
-rm -rf certs/certificate.pem certs/privatekey.pem dockerfiles/postgres/server.crt dockerfiles/postgres/server.key
+rm -rf certs/certificate.pem certs/privatekey.pem apps-files/postgres/server.crt apps-files/postgres/server.key
 ```
 
 
