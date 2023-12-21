@@ -10,7 +10,8 @@ All in one compose.file
 [traefik](https://traefik.io) as reverse proxy\
 [adminer](https://www.adminer.org) as web ui database management\
 [gitea](https://about.gitea.com) as git server\
-[portainer](https://www.portainer.io) as container orchestration
+[portainer](https://www.portainer.io) as container orchestration\
+[qbittorrent](https://www.qbittorrent.org) as cross-platform file-sharing network client
 
 </details>
 
@@ -59,7 +60,7 @@ self-signed certificates
 mkcert -install
 
 # for traefik
-mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost"
+mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "qbittorrent.localhost"
 
 # for postgres
 mkcert -cert-file apps-files/postgres/server.crt -key-file apps-files/postgres/server.key "postgres"
@@ -82,14 +83,18 @@ docker-compose up -d
 [traefik.localhost](https://traefik.localhost)\
 [adminer.localhost](https://adminer.localhost)\
 [gitea.localhost](https://gitea.localhost)\
-[portainer.localhost](https://portainer.localhost)
-
+[portainer.localhost](https://portainer.localhost)\
+[qbittorrent.localhost](https://qbittorrent.localhost)
 
 #
 
 <details>
 <summary><strong>some commands</strong></summary>
 
+password for <strong>admin</strong> qbittorrent
+```bash
+docker-compose logs -f qbittorrent
+```
 
 ```bash
 # delete certificates
@@ -103,3 +108,8 @@ rm -rf data || sudo rm -rf data
 ```
 
 </details>
+
+#
+
+some trouble :c\
+safari wont open links, all other browsers works fine
