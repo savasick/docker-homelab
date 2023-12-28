@@ -82,7 +82,7 @@ services:
       - "traefik.http.services.gitea.loadbalancer.server.port=3000"
       - "traefik.enable=true"
       - "traefik.docker.network=net"
-      - "traefik.http.routers.gitea.rule=Host(`gitea.localhost`)"
+      - "traefik.http.routers.gitea.rule=Host(${GITEA_URL})"
       - "traefik.http.routers.gitea.tls=true"
     volumes:
       - ./data/gitea:/data
@@ -103,7 +103,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=net"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
-      - "traefik.http.routers.portainer.rule=Host(`portainer.localhost`)"
+      - "traefik.http.routers.portainer.rule=Host(${PORTAINER_URL})"
       - "traefik.http.routers.portainer.tls=true"
     volumes:
       - ./data/portainer:/data
@@ -133,5 +133,5 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=net"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=1489"
-      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.localhost`)"
+      - "traefik.http.routers.qbittorrent.rule=Host(${QB_URL})"
       - "traefik.http.routers.qbittorrent.tls=true"
