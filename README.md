@@ -10,6 +10,7 @@ All in one compose.file
 | [adminer](https://www.adminer.org) | database management |
 | [gitea](https://about.gitea.com) | git server |
 | [portainer](https://www.portainer.io) | container orchestration |
+| [qbittorrent](https://www.qbittorrent.org) | P2P bittorrent web client |
 
 
 #
@@ -21,9 +22,9 @@ All in one compose.file
 </br>
 
 
-1. Get mkcert
+1. <strong>Get mkcert</strong>
 
-    for <strong>linux</strong>
+    <big><strong>linux</strong></big>
 
     ```bash
     sudo apt install libnss3-tools -y
@@ -38,7 +39,7 @@ All in one compose.file
 
     #
 
-    for <strong>macos</strong>
+    <big><strong>macos</strong></big>
 
     get <a href="https://brew.sh/">brew</a>.
     when get it, install mkcert
@@ -50,7 +51,7 @@ All in one compose.file
 
     #
 
-    for <strong>windows</strong>
+    <big><strong>windows</strong></big>
 
     get <a href="https://chocolatey.org/install">chocolatey</a>.
     when get it, install mkcert
@@ -60,34 +61,44 @@ All in one compose.file
     ```
 
     #
-    for brew
+
+    for <strong>install brew</strong>
+    
     ```bash
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # add to .bashrc
     (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bashrc
     ```
 
-    for chocolatey
+    for <strong>install chocolatey</strong>
+    
     ```shell
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
     ```
     may need to reopen terminal
-    #
 
-2. Get <strong>self-signed certificates</strong>
+#
+
+2. <strong>Get self-signed certificates</strong>
+    
+    creates a local certification authority and registers it in the system’s trusted storage
+
     ```bash
     mkcert -install
+    ```
 
-    # for traefik
-    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost"
 
-    # for postgres
+    add certificates for apps
+
+    ```bash
+    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "qbittorrent.localhost"
+
     mkcert -cert-file apps-files/postgres/server.crt -key-file apps-files/postgres/server.key "postgres"
     ```
     
-    #
+#
 
-3. Now ready to <strong>start</strong>
+3. <strong>Now ready to start</strong>
 
     ```bash
     docker-compose up -d
@@ -104,12 +115,17 @@ All in one compose.file
 [traefik.localhost](https://traefik.localhost)\
 [adminer.localhost](https://adminer.localhost)\
 [gitea.localhost](https://gitea.localhost)\
-[portainer.localhost](https://portainer.localhost)
+[portainer.localhost](https://portainer.localhost)\
+[qbittorrent.localhost](https://qbittorrent.localhost)
 
 #
 
 <details>
 <summary><strong>COMMANDS</strong></summary>
+
+```bash
+docker-compose logs qbittorrent | grep session
+```
 
 
 ```bash
