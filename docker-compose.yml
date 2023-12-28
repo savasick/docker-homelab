@@ -110,27 +110,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
 
-# ------------- qbittorrent -------------
-  qbittorrent:
-    image: linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-      - WEBUI_PORT=1337
-    networks:
-      - net
-    volumes:
-      - ./data/qbittorrent/appdata/config:/config
-      - ./data/qbittorrent/downloads:/downloads
-    ports:
-      - 1337:1337
-      - 6881:6881
-      - 6881:6881/udp
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=net"
-      - "traefik.http.services.qbittorrent.loadbalancer.server.port=1337"
-      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.localhost`)"
-      - "traefik.http.routers.qbittorrent.tls=true"
