@@ -25,7 +25,8 @@ All in one compose.file
 1. <strong>Get mkcert</strong>
 
     <big><strong>linux</strong></big>
-
+    
+    install network security service libraries
     ```bash
     sudo apt install libnss3-tools -y
     ```
@@ -42,7 +43,7 @@ All in one compose.file
     <big><strong>macos</strong></big>
 
     get <a href="https://brew.sh/">brew</a>.
-    when get it, install mkcert
+    when get it, install mkcert / nss
     
     ```bash
     brew install mkcert
@@ -60,22 +61,22 @@ All in one compose.file
     choco install mkcert
     ```
 
-    #
+#
 
-    for <strong>install brew</strong>
-    
-    ```bash
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    # add to .bashrc
-    (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bashrc
-    ```
+for <strong>install brew</strong>
 
-    for <strong>install chocolatey</strong>
-    
-    ```shell
-    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-    ```
-    may need to reopen terminal
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# add to .bashrc
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bashrc
+```
+
+for <strong>install chocolatey</strong>
+
+```shell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+may need to reopen terminal
 
 #
 
