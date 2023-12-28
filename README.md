@@ -125,6 +125,7 @@ may need to reopen terminal
 <summary><strong>COMMANDS</strong></summary>
 
 ```bash
+# get qbittorrent password
 docker-compose logs qbittorrent | grep session
 ```
 
@@ -142,8 +143,4 @@ rm -rf data || sudo rm -rf data
 
 </details>
 
-#
 
-some trouble :c\
-safari wont open links, all other browsers works fine\
-couse nobody likes self-signed certificates

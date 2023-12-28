@@ -110,6 +110,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
 # ------------- qbittorrent -------------
+
   qbittorrent:
     image: linuxserver/qbittorrent:${QB_VERSION}
     container_name: qbittorrent-${MAIN_NAME}
