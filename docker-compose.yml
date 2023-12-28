@@ -52,7 +52,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=net"
-      - "traefik.http.routers.adminer.rule=Host(`adminer.localhost`)"
+      - "traefik.http.routers.adminer.rule=Host(${ADMINER_URL})"
       - "traefik.http.routers.adminer.tls=true"
     networks:
       - net

@@ -1,7 +1,8 @@
 # <strong> Docker - Homelab </strong>
 
-Collection of the applications used in homelabs\
-All in one compose.file
+Collection of the applications used in homelabs, with self-signed certificates\
+All in one compose.file\
+look at .env file
 
 
 | Application | Description |
@@ -125,7 +126,7 @@ may need to reopen terminal
 <summary><strong>COMMANDS</strong></summary>
 
 ```bash
-# get qbittorrent password
+# get qbittorrent password for admin
 docker-compose logs qbittorrent | grep session
 ```
 
