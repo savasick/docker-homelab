@@ -21,7 +21,9 @@ services:
       - ./certs:/etc/certs:ro
     networks:
       - net
-
+    labels:
+      - "traefik.http.services.dashboard.loadbalancer.passhostheader=true"
+      
 # ------------- postgres -------------
   postgres:
     container_name: postgres-${MAIN_NAME}
@@ -136,6 +138,25 @@ services:
       - "traefik.http.routers.qbittorrent.rule=Host(${QB_URL})"
       - "traefik.http.routers.qbittorrent.tls=true"
 
+# ------------- heimdall -------------
+
+# heimdall:
+#   image: linuxserver/heimdall:latest
+#   container_name: heimdall-${MAIN_NAME}
+#   restart: always
+#   ports:
+#     - 88:80
+#   volumes:
+#     - ./data/heimdall:/config
+#   networks:
+#     - net
+#   labels:
+#     - "traefik.enable=true"
+#     - "traefik.docker.network=net"
+#      - "traefik.http.services.heimdall.loadbalancer.server.port=88"
+#      - "traefik.http.routers.heimdall.rule=Host(${HEIMDALL_URL})"
+#      - "traefik.http.routers.heimdall.tls=true"
+
 # ------------- dashy -------------
   dashy:
     image: lissy93/dashy:latest
@@ -147,12 +168,30 @@ services:
       - ./apps-files/dashy/conf.yml:/app/public/conf.yml
     networks:
       - net
+#    environment:
+#      - BASE_URL=/dashy
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=net"
       - "traefik.http.routers.dashy.rule=Host(`home.localhost`)"
+      - "traefik.http.routers.dashy.service=dashy"
+      - "traefik.http.services.dashy.loadbalancer.server.port=80"
+      - "traefik.http.services.dashy.loadbalancer.passhostheader=true"
       - "traefik.http.routers.dashy.tls=true"
-      - "traefik.http.services.dashy.loadbalancer.server.url=http://192.168.5.87:4000/"
+      - "traefik.http.routers.dashy.middlewares=compresstraefik"
+      - "traefik.http.middlewares.compresstraefik.compress=true"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolalloworiginlist=https://home.localhost"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.testheader.headers.addvaryheader=true"
+      - "traefik.docker.network=net"
 
-# http://192.168.5.87:8080/
-# http://localhost:8080/
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
