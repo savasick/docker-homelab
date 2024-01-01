@@ -93,7 +93,7 @@ may need to reopen terminal
     add certificates for apps
 
     ```bash
-    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "qbittorrent.localhost" "home.localhost" "localhost"
+    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "qbittorrent.localhost" "home.localhost"
 
     mkcert -cert-file apps-files/postgres/server.crt -key-file apps-files/postgres/server.key "postgres"
     ```

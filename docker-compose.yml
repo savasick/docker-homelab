@@ -140,58 +140,17 @@ services:
 
 # ------------- heimdall -------------
 
-# heimdall:
-#   image: linuxserver/heimdall:latest
-#   container_name: heimdall-${MAIN_NAME}
-#   restart: always
-#   ports:
-#     - 88:80
-#   volumes:
-#     - ./data/heimdall:/config
-#   networks:
-#     - net
-#   labels:
-#     - "traefik.enable=true"
-#     - "traefik.docker.network=net"
-#      - "traefik.http.services.heimdall.loadbalancer.server.port=88"
-#      - "traefik.http.routers.heimdall.rule=Host(${HEIMDALL_URL})"
-#      - "traefik.http.routers.heimdall.tls=true"
-
-# ------------- dashy -------------
-  dashy:
-    image: lissy93/dashy:latest
-    container_name: dashy-${MAIN_NAME}
+  heimdall:
+    image: linuxserver/heimdall:latest
+    container_name: heimdall-${MAIN_NAME}
     restart: always
-    ports:
-      - 4000:80
     volumes:
-      - ./apps-files/dashy/conf.yml:/app/public/conf.yml
+      - ./data/heimdall:/config
     networks:
       - net
-#    environment:
-#      - BASE_URL=/dashy
-    environment:
-      - NODE_ENV=production
-    depends_on:
-      - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashy.rule=Host(`home.localhost`)"
-      - "traefik.http.routers.dashy.service=dashy"
-      - "traefik.http.services.dashy.loadbalancer.server.port=80"
-      - "traefik.http.services.dashy.loadbalancer.passhostheader=true"
-      - "traefik.http.routers.dashy.tls=true"
-      - "traefik.http.routers.dashy.middlewares=compresstraefik"
-      - "traefik.http.middlewares.compresstraefik.compress=true"
-      - "traefik.http.middlewares.testheader.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
-      - "traefik.http.middlewares.testheader.headers.accesscontrolalloworiginlist=https://home.localhost"
-      - "traefik.http.middlewares.testheader.headers.accesscontrolmaxage=100"
-      - "traefik.http.middlewares.testheader.headers.addvaryheader=true"
       - "traefik.docker.network=net"
+      - "traefik.http.routers.heimdall.rule=Host(${HEIMDALL_URL})"
+      - "traefik.http.routers.heimdall.tls=true"
 
-    healthcheck:
-      test: ['CMD', 'node', '/app/services/healthcheck']
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
