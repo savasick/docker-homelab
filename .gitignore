@@ -7,5 +7,5 @@ gitea/
 /data
 /apps-files/postgres/server.crt
 /apps-files/postgres/server.key
-/apps-files/heimdall/www/app.sqlite
+#/apps-files/heimdall/www/app.sqlite
 /apps-files/heimdall/www/logs
