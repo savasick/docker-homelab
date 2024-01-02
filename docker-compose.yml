@@ -146,6 +146,8 @@ services:
     restart: always
     volumes:
       - ./data/heimdall:/config
+      - ./apps-files/heimdall/www:/config/www
+      - ./apps-files/heimdall/php:/config/php
     networks:
       - net
     labels:
