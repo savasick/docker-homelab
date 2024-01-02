@@ -1,3 +1,11 @@
+searx:
+   id: SearXNG
+   url: https://priv.au
+   name: SearX
+   method: get
+   target: _blank
+   query: q
+
 baidu:
    id: baidu
    url: https://www.baidu.com/s
@@ -26,14 +34,6 @@ google:
    id: google
    url: https://www.google.com/search
    name: Google
-   method: get
-   target: _blank
-   query: q
-
-searx:
-   id: SearXNG
-   url: https://priv.au
-   name: SearX
    method: get
    target: _blank
    query: q

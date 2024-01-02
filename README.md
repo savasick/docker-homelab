@@ -12,7 +12,7 @@ look at .env file
 | [gitea](https://about.gitea.com) | git server |
 | [portainer](https://www.portainer.io) | container orchestration |
 | [qbittorrent](https://www.qbittorrent.org) | P2P bittorrent web client |
-
+| [heimdall](https://github.com/linuxserver/Heimdall) | home page |
 
 #
 
@@ -105,6 +105,8 @@ may need to reopen terminal
     ```bash
     docker-compose up -d
     ```
+    then visit\
+    https://home.localhost
 
 
 </details>
