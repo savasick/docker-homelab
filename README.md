@@ -7,12 +7,12 @@ look at .env file
 
 | Application | Description |
 | :--------  | ---------: |
-| [traefik](https://traefik.io) | reverse proxy |
+| [traefik](https://traefik.io) | Edge Router |
 | [adminer](https://www.adminer.org) | database management |
 | [gitea](https://about.gitea.com) | git server |
 | [portainer](https://www.portainer.io) | container orchestration |
 | [qbittorrent](https://www.qbittorrent.org) | P2P bittorrent web client |
-
+| [heimdall](https://github.com/linuxserver/Heimdall) | home page |
 
 #
 
@@ -93,7 +93,7 @@ may need to reopen terminal
     add certificates for apps
 
     ```bash
-    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "qbittorrent.localhost"
+    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "qbittorrent.localhost" "home.localhost"
 
     mkcert -cert-file apps-files/postgres/server.crt -key-file apps-files/postgres/server.key "postgres"
     ```
@@ -105,6 +105,8 @@ may need to reopen terminal
     ```bash
     docker-compose up -d
     ```
+    then visit\
+    https://home.localhost
 
 
 </details>
@@ -119,6 +121,8 @@ may need to reopen terminal
 [gitea.localhost](https://gitea.localhost)\
 [portainer.localhost](https://portainer.localhost)\
 [qbittorrent.localhost](https://qbittorrent.localhost)
+
+[home.localhost](https://home.localhost)
 
 #
 
@@ -143,5 +147,3 @@ rm -rf data || sudo rm -rf data
 ```
 
 </details>
-
-

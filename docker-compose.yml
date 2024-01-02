@@ -21,7 +21,9 @@ services:
       - ./certs:/etc/certs:ro
     networks:
       - net
-
+    labels:
+      - "traefik.http.services.dashboard.loadbalancer.passhostheader=true"
+      
 # ------------- postgres -------------
   postgres:
     container_name: postgres-${MAIN_NAME}
@@ -82,7 +84,7 @@ services:
       - "traefik.http.services.gitea.loadbalancer.server.port=3000"
       - "traefik.enable=true"
       - "traefik.docker.network=net"
-      - "traefik.http.routers.gitea.rule=Host(${GITEA_URL})"
+      - "traefik.http.routers.gitea.rule=Host(`gitea.localhost`)"
       - "traefik.http.routers.gitea.tls=true"
     volumes:
       - ./data/gitea:/data
@@ -135,3 +137,22 @@ services:
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=1489"
       - "traefik.http.routers.qbittorrent.rule=Host(${QB_URL})"
       - "traefik.http.routers.qbittorrent.tls=true"
+
+# ------------- heimdall -------------
+
+  heimdall:
+    image: linuxserver/heimdall:latest
+    container_name: heimdall-${MAIN_NAME}
+    restart: always
+    volumes:
+      - ./data/heimdall:/config
+      - ./apps-files/heimdall/www:/config/www
+      - ./apps-files/heimdall/php:/config/php
+    networks:
+      - net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=net"
+      - "traefik.http.routers.heimdall.rule=Host(${HEIMDALL_URL})"
+      - "traefik.http.routers.heimdall.tls=true"
+
