@@ -86,7 +86,7 @@ services:
       - "traefik.http.services.gitea.loadbalancer.server.port=3000"
       - "traefik.enable=true"
       - "traefik.docker.network=net"
-      - "traefik.http.routers.gitea.rule=Host(`${GITEA_HOST})"
+      - "traefik.http.routers.gitea.rule=Host(`${GITEA_HOST}`)"
       - "traefik.http.routers.gitea.tls=true"
     volumes:
       - ./data/gitea:/data
