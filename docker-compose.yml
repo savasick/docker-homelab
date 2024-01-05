@@ -14,6 +14,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    environment:
+      - TRAEFIK_HOST=${TRAEFIK_HOST}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./apps-files/traefik/config/static.yml:/etc/traefik/traefik.yml:ro
@@ -54,7 +56,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=net"
-      - "traefik.http.routers.adminer.rule=Host(${ADMINER_URL})"
+      - "traefik.http.routers.adminer.rule=Host(`${ADMINER_HOST}`)"
       - "traefik.http.routers.adminer.tls=true"
     networks:
       - net
@@ -84,7 +86,7 @@ services:
       - "traefik.http.services.gitea.loadbalancer.server.port=3000"
       - "traefik.enable=true"
       - "traefik.docker.network=net"
-      - "traefik.http.routers.gitea.rule=Host(`gitea.localhost`)"
+      - "traefik.http.routers.gitea.rule=Host(`${GITEA_HOST})"
       - "traefik.http.routers.gitea.tls=true"
     volumes:
       - ./data/gitea:/data
@@ -105,11 +107,11 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=net"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
-      - "traefik.http.routers.portainer.rule=Host(${PORTAINER_URL})"
+      - "traefik.http.routers.portainer.rule=Host(`${PORTAINER_HOST}`)"
       - "traefik.http.routers.portainer.tls=true"
     volumes:
       - ./data/portainer:/data
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 # ------------- qbittorrent -------------
 
@@ -135,13 +137,13 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=net"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=1489"
-      - "traefik.http.routers.qbittorrent.rule=Host(${QB_URL})"
+      - "traefik.http.routers.qbittorrent.rule=Host(`${QB_HOST}`)"
       - "traefik.http.routers.qbittorrent.tls=true"
 
 # ------------- heimdall -------------
 
   heimdall:
-    image: linuxserver/heimdall:latest
+    image: linuxserver/heimdall:${HEIMDALL_VERSION}
     container_name: heimdall-${MAIN_NAME}
     restart: always
     volumes:
@@ -153,6 +155,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=net"
-      - "traefik.http.routers.heimdall.rule=Host(${HEIMDALL_URL})"
+      - "traefik.http.routers.heimdall.rule=Host(`${HEIMDALL_HOST}`)"
       - "traefik.http.routers.heimdall.tls=true"
-
