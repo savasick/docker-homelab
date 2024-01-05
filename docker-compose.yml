@@ -70,7 +70,7 @@ services:
       - USER_UID=1000
       - USER_GID=1000
       - GITEA__server__ROOT_URL=${GITEA_URL}
-      - GITEA__server__DOMAIN=${GITEA_HOSTNAME}
+      - GITEA__server__DOMAIN=${GITEA_HOST}
       - GITEA__database__DB_TYPE=${DB_TYPE}
       - GITEA__database__NAME=${DB_NAME}
       - GITEA__database__USER=${DB_USER}

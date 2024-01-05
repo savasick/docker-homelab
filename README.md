@@ -1,8 +1,7 @@
 # <strong> Docker - Homelab </strong>
 
 Collection of the applications used in homelabs, with self-signed certificates\
-All in one compose.file\
-look at .env file
+All in one compose.file
 
 
 | Application | Description |
