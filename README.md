@@ -64,23 +64,6 @@ look at .env file
 
 #
 
-for <strong>install brew</strong>
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# add to .bashrc
-(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bashrc
-```
-
-for <strong>install chocolatey</strong>
-
-```shell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-```
-may need to reopen terminal
-
-#
-
 2. <strong>Get self-signed certificates</strong>
     
     creates a local certification authority and registers it in the system’s trusted storage
@@ -103,7 +86,7 @@ may need to reopen terminal
 3. <strong>Now ready to start</strong>
 
     ```bash
-    docker-compose up -d
+    docker-compose up -d --build
     ```
     then visit\
     https://home.localhost
@@ -120,8 +103,7 @@ may need to reopen terminal
 [adminer.localhost](https://adminer.localhost)\
 [gitea.localhost](https://gitea.localhost)\
 [portainer.localhost](https://portainer.localhost)\
-[qbittorrent.localhost](https://qbittorrent.localhost)
-
+[qbittorrent.localhost](https://qbittorrent.localhost)\
 [home.localhost](https://home.localhost)
 
 #
