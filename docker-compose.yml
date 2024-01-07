@@ -113,33 +113,6 @@ services:
       - ./data/portainer:/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-# ------------- qbittorrent -------------
-
-  qbittorrent:
-    image: linuxserver/qbittorrent:${QB_VERSION}
-    container_name: qbittorrent-${MAIN_NAME}
-    restart: always
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Moscow
-      - WEBUI_PORT=1489
-    volumes:
-      - ./data/qbittorrent:/config
-      - ./data/qbittorrent/downloads:/downloads
-    ports:
-      - "6881:6881/tcp"
-      - "6881:6881/udp"
-      - "1489:1489"
-    networks:
-      - net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=net"
-      - "traefik.http.services.qbittorrent.loadbalancer.server.port=1489"
-      - "traefik.http.routers.qbittorrent.rule=Host(`${QB_HOST}`)"
-      - "traefik.http.routers.qbittorrent.tls=true"
-
 # ------------- heimdall -------------
 
   heimdall:

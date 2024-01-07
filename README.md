@@ -10,7 +10,6 @@ All in one compose.file
 | [adminer](https://www.adminer.org) | database management |
 | [gitea](https://about.gitea.com) | git server |
 | [portainer](https://www.portainer.io) | container orchestration |
-| [qbittorrent](https://www.qbittorrent.org) | P2P bittorrent web client |
 | [heimdall](https://github.com/linuxserver/Heimdall) | home page |
 
 #
@@ -75,7 +74,7 @@ All in one compose.file
     add certificates for apps
 
     ```bash
-    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "qbittorrent.localhost" "home.localhost"
+    mkcert -cert-file certs/certificate.pem -key-file certs/privatekey.pem "traefik.localhost" "gitea.localhost" "adminer.localhost" "portainer.localhost" "home.localhost"
 
     mkcert -cert-file apps-files/postgres/server.crt -key-file apps-files/postgres/server.key "postgres"
     ```
@@ -102,7 +101,6 @@ All in one compose.file
 [adminer.localhost](https://adminer.localhost)\
 [gitea.localhost](https://gitea.localhost)\
 [portainer.localhost](https://portainer.localhost)\
-[qbittorrent.localhost](https://qbittorrent.localhost)\
 [home.localhost](https://home.localhost)
 
 #
