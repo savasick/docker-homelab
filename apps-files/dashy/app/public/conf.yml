@@ -1,0 +1,81 @@
+pageInfo:
+  title: Homelab
+
+
+# Optional app settings and configuration
+appConfig:
+  theme: vaporware
+  hideComponents:
+    hideFooter: true
+
+# Main content - An array of sections, each containing an array of items
+sections:
+- name: whoami
+  icon: si-hackaday
+  widgets:
+    - type: clock
+#      collapsed: false
+      options:
+        timeZone: Europe/Moscow
+        format: en-GB
+        hideDate: false
+    - type: public-ip
+
+- name: Home
+  icon: si-esphome
+  items:
+  - title: Gitea
+    description: Development
+    icon: si-gitea
+    url: http://127.0.0.1:3000/
+    target: newtab
+  - title: GitHub
+    description: Source Code, Issues and Pull Requests
+    url: https://github.com/savasick
+    icon: si-github
+  - title: DockerHub
+    description: Docker images
+    icon: si-docker
+    url: https://hub.docker.com/
+  - title: Adminer
+    description: database management
+    url: http://127.0.0.1:8060/
+    icon: si-adminer
+  - title: torrent
+    description: web torrent client
+    url: http://127.0.0.1:8070/
+    icon: far fa-download
+  - title: files
+    description: webui filebrowser
+    url: http://127.0.0.1:8050/
+    icon: far fa-folder-open
+
+
+- name: currency
+  icon: si-bitcoin
+  widgets:
+    - type: crypto-watch-list
+      options:
+        currency: USD
+        sortBy: marketCap
+        assets:
+        - bitcoin
+        - ethereum
+        - monero
+        - zcash
+        - dash
+        - verge
+        - komodo
+        - ripple
+        - cardano
+        - litecoin
+        - maker
+#    - type: exchange-rates
+#      options:
+#        apiKey: 
+#        inputCurrency: USD
+#        outputCurrencies:
+#          - RUB
+#          - JPY
+#          - HKD
+#          - KPW

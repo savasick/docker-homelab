@@ -1,0 +1,114 @@
+version: '3.8'
+
+networks:
+  homelab:
+    driver: bridge
+#    external: false
+
+services:
+# ------------- dashy -------------
+  dashy:
+    image: lissy93/dashy:${DASHY_VERSION}
+    container_name: dashy-${MAIN_NAME}
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+     - ./apps-files/dashy/app/public/conf.yml:/app/public/conf.yml
+    networks:
+      - homelab
+    environment:
+      - "DOTENV=.env"
+
+# ------------- postgres -------------
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - homelab
+
+# ------------- adminer -------------
+  adminer:
+    image: adminer:${ADMINER_VERSION}
+    container_name: adminer-${MAIN_NAME}
+    restart: always
+    ports:
+      - 8060:8080
+    depends_on:
+      - postgres
+    environment: 
+      - ADMINER_DEFAULT_SERVER=postgres
+      - ADMINER_DESIGN=nette
+    networks:
+      - homelab
+
+# ------------- gitea -------------
+  gitea:
+    image: gitea/gitea:${GITEA_VERSION}
+    container_name: gitea-${MAIN_NAME}
+    restart: always
+    environment:
+      - USER_UID=${UID}
+      - USER_GID=${GID}
+      - DOMAIN=${IP}
+      - SSH_DOMAIN=${IP}
+      - HTTP_PORT=3000
+      - SSH_PORT=222
+      - SSH_LISTEN_PORT=22
+      - GITEA__server__ROOT_URL=http://${IP}:3000
+      - GITEA__server__DOMAIN=${IP}
+      - GITEA__database__DB_TYPE=${DB_TYPE}
+      - GITEA__database__NAME=${DB_NAME}
+      - GITEA__database__USER=${DB_USER}
+      - GITEA__database__PASSWD=${DB_PASSWD}
+      - GITEA__database__HOST=${DB_TYPE}
+      - GITEA__ui__DEFAULT_THEME=gitea
+    ports:
+      - "3000:3000"
+      - "222:22"
+    volumes:
+      - ./data/gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - postgres
+    networks:
+      - homelab
+
+# ------------- qbittorrent -------------
+  qbittorrent:
+    build: ./apps-files/qbittorrent/
+    container_name: qbittorrent-${MAIN_NAME}
+    restart: always
+    volumes:
+      - ./data/qbittorrent/config:/config
+      - ./data/downloads:/downloads
+      - ./data/shared-files:/shared-files
+    environment:
+      - TZ=${TZ}
+      - WEBUI_PORT=8070
+      - TORRENTING_PORT=6881
+      - QBIT_VERSION=${QBIT_VERSION}
+    ports:
+      - 8070:8070
+      - 6881:6881
+      - 6881:6881/udp
+    networks:
+      - homelab
+    env_file:
+      - ./.env
+
+# ------------- filebrowser -------------
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    volumes:
+      - ./data/shared-files:/srv/downloads
+    ports:
+      - "8050:80"
