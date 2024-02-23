@@ -6,6 +6,9 @@ sed -i 's/\b[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\b/{IP}/g' ./a
 [ -d ./data ] && sudo rm -rf ./data
 # get ip from env
 IP=$(cat .env | grep -o "IP=[^#]*" | cut -d= -f2 | tr -d \")
+timezone=$(cat .env | grep -o "TZ=[^#]*" | cut -d= -f2 | tr -d \")
+# set timezone
+sed -i "s|timeZone: .*|timeZone: $timezone|" ./apps-files/dashy/app/public/conf.yml
 # replace all {IP} with ip at env
 sed -i "s/{IP}/$IP/g" ./apps-files/dashy/app/public/conf.yml
 

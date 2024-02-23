@@ -58,6 +58,12 @@ IP=$(cat .env | grep -o "IP=[^#]*" | cut -d= -f2 | tr -d \")
 sed -i "s/{IP}/$IP/g" ./apps-files/dashy/app/public/conf.yml
 ```
 
+set timezone
+```bash
+timezone=$(cat .env | grep -o "TZ=[^#]*" | cut -d= -f2 | tr -d \")
+sed -i "s|timeZone: .*|timeZone: $timezone|" ./apps-files/dashy/app/public/conf.yml
+```
+
 show default login and pass
 ```bash
 LOGIN=admin
