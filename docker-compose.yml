@@ -108,7 +108,10 @@ services:
 # ------------- filebrowser -------------
   filebrowser:
     image: filebrowser/filebrowser:latest
+    restart: always
     volumes:
       - ./data/shared-files:/srv/downloads
     ports:
       - "8050:80"
+    networks:
+      - homelab
