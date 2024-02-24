@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+mv .env.example .env
 # move to factory settings
 sed -i 's/\b[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\b/{IP}/g' ./apps-files/dashy/app/public/conf.yml
 [ -d ./data ] && sudo rm -rf ./data

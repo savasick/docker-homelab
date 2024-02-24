@@ -31,6 +31,7 @@ for Qbittorrent login : admin  password : (at logs see "help tips")
 ```bash
 git clone https://github.com/savasick/docker-homelab.git
 cd docker-homelab
+mv .env.example .env
 docker-compose up -d
 ```
 
