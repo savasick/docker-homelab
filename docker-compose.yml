@@ -20,20 +20,6 @@ services:
     environment:
       - "DOTENV=.env"
 
-# ------------- postgres -------------
-  postgres:
-    image: postgres:${POSTGRES_VERSION}
-    restart: always
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWD}
-      - POSTGRES_DB=${DB_NAME}
-      - PGDATA=/var/lib/postgresql/data
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-    networks:
-      - homelab
-
 # ------------- adminer -------------
   adminer:
     image: adminer:${ADMINER_VERSION}
@@ -82,6 +68,20 @@ services:
     networks:
       - homelab
 
+# ------------- postgres -------------
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - homelab
+
 # ------------- qbittorrent -------------
   qbittorrent:
     build: ./apps-files/qbittorrent/
@@ -107,7 +107,8 @@ services:
 
 # ------------- filebrowser -------------
   filebrowser:
-    image: filebrowser/filebrowser:latest
+    image: filebrowser/filebrowser:${FILEBROWSER_VERSION}
+    container_name: filebrowser-${MAIN_NAME}
     restart: always
     volumes:
       - ./data/shared-files:/srv/downloads
