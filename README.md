@@ -7,6 +7,7 @@
 | [gitea](https://about.gitea.com) | Git server |
 | [qbittorrent](https://www.qbittorrent.org/) | Qbittorrent client |
 | [filebrowser](https://filebrowser.org/) | File manager |
+| [filebrowser](https://www.netdata.cloud/) | system info |
 
 <details>
 <summary><strong>about</strong></summary>
@@ -38,7 +39,6 @@ docker-compose up -d
 [127.0.0.1](http://127.0.0.1)
 
 #
-
 
 
 

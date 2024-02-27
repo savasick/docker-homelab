@@ -20,20 +20,6 @@ services:
     environment:
       - "DOTENV=.env"
 
-# ------------- postgres -------------
-  postgres:
-    image: postgres:${POSTGRES_VERSION}
-    restart: always
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWD}
-      - POSTGRES_DB=${DB_NAME}
-      - PGDATA=/var/lib/postgresql/data
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-    networks:
-      - homelab
-
 # ------------- adminer -------------
   adminer:
     image: adminer:${ADMINER_VERSION}
@@ -82,6 +68,20 @@ services:
     networks:
       - homelab
 
+# ------------- postgres -------------
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - homelab
+
 # ------------- qbittorrent -------------
   qbittorrent:
     build: ./apps-files/qbittorrent/
@@ -108,6 +108,7 @@ services:
 # ------------- filebrowser -------------
   filebrowser:
     image: filebrowser/filebrowser:latest
+    container_name: filebrowser-${MAIN_NAME}
     restart: always
     volumes:
       - ./data/shared-files:/srv/downloads
@@ -115,3 +116,45 @@ services:
       - "8050:80"
     networks:
       - homelab
+
+# ------------- netdata -------------
+
+  netdata:
+    image: netdata/netdata:${NETDATA_VERSION}
+    container_name: netdata-${MAIN_NAME}
+    pid: host
+    network_mode: host
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+#      - apparmor:strict
+    volumes:
+      - ./data/netdata/netdataconfig:/etc/netdata
+      - ./data/netdata/netdatalib:/var/lib/netdata
+      - ./data/netdata/netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/log:/host/var/log:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DOCKER_HOST=localhost:2375
+      - NETDATA_HOST=localhost
+      - NETDATA_METRICS_PATH=./data/netdata/metrics
+      - NETDATA_LOGS_PATH=./data/netdata/logs
+
+  proxy:
+    network_mode: host
+    container_name: docker-socket-proxy-${MAIN_NAME}
+    restart: unless-stopped
+    image: tecnativa/docker-socket-proxy:${SOCKET_VERSION}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=1

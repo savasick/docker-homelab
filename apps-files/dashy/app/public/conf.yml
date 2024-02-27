@@ -49,6 +49,10 @@ sections:
     description: webui filebrowser
     url: http://127.0.0.1:8050/
     icon: far fa-folder-open
+  - title: netdata
+    description: system info
+    url: http://127.0.0.1:19999/
+    icon: si-Netdata
 
 
 - name: currency
